@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="step-form">
       <div className="form-container">
-        <h2>Onboarding form</h2>
+        <h2>Onboarding Form</h2>
         <OnboardingForm />
       </div>
     </div>
