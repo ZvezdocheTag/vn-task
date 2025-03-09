@@ -1,0 +1,131 @@
+
+.form-title {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #111;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-grid .full-width {
+    grid-column: span 2;
+}
+
+.form-fieldset {
+    margin-bottom: 12px;
+    border: none;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e0e4e8;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .1s ease-in-out;
+}
+.success-message {
+    color: #006638;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .1s ease-in-out;
+}
+
+.error-message.visible, .success-message.visible {
+    opacity: 1;
+}
+
+.submit-btn {
+    background-color: #111;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 32px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #333;
+}
+
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Button States */
+.submit-btn .arrow {
+    transition: transform 0.3s;
+}
+
+.submit-btn:hover .arrow {
+    transform: translateX(3px);
+}
+
+.submit-btn .loader {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.submit-btn.loading .arrow {
+    display: none;
+}
+
+.submit-btn.loading .loader {
+    display: block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid .full-width {
+        grid-column: 1;
+    }
+    
+    .form-container {
+        padding: 30px 20px;
+    }
+}
