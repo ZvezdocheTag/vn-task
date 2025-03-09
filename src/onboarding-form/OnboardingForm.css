@@ -11,6 +11,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    max-width: 100%;
 }
 
 .form-grid .full-width {
@@ -119,6 +120,7 @@
 @media (max-width: 600px) {
     .form-grid {
         grid-template-columns: 1fr;
+        gap: 0;
     }
     
     .form-grid .full-width {

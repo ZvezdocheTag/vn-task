@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import OnboardingForm from "./OnboardingForm";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import '@testing-library/jest-dom';
@@ -47,12 +47,30 @@ describe("OnboardingForm Component", () => {
     const inputs = screen.getAllByRole("textbox");
     expect(inputs).toHaveLength(4);
 
-    expect(inputs[0]).toHaveAttribute("name", "firstName");
+    const firstNameInput = inputs[0];
+    expect(firstNameInput).toHaveAttribute("name", "firstName");
     expect(inputs[1]).toHaveAttribute("name", "lastName");
     expect(inputs[2]).toHaveAttribute("name", "phone");
     expect(inputs[3]).toHaveAttribute("name", "corporationNumber");
 
     expect(screen.getByRole("button", { name: /submit/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /submit/i })).not.toBeDisabled();
+
+    // Test name input
+    const nextBlock = firstNameInput.nextElementSibling;
+    expect(nextBlock).toHaveClass('error-message');
+    expect(nextBlock).not.toHaveClass('visible');
+
+    firstNameInput.focus();
+    expect(firstNameInput).toHaveFocus();
+    fireEvent.change(firstNameInput, { target: { value: "Hello" } });
+    expect(firstNameInput).toHaveValue("Hello");
+    fireEvent.change(firstNameInput, { target: { value: "" } });
+    expect(firstNameInput).toHaveValue("");
+    firstNameInput.blur();
+
+    waitFor(() => {
+      expect(nextBlock).toHaveClass('visible');
+    });    
   });
 });

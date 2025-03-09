@@ -31,12 +31,13 @@ function OnboardingForm() {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
                 const formObject = Object.fromEntries(formData.entries()) as OnbordinForm;
+                console.log('submit')
 
                 if (invalidFields.length === 0 && untouchedFields.length === 0) {
                     const result = await submitOnboardingFrom(formObject);
                     setSubmitStatus(result);
                 } else {
-                    // TODO; console.log("Some field is invalid");
+                    setInvalidField(prev => [...new Set([...prev, ...untouchedFields])]);
                 }
             });
 
@@ -71,6 +72,7 @@ function OnboardingForm() {
                 className={`form-input`}
                 onBlur={handleBlur('firstName', isValidateName)}
                 onFocus={handleFocus('firstName')}
+                maxLength={50}
             />
             <span className={`error-message ${invalidFields.includes('firstName') ? "visible" : ''}`}>Required</span>
         </div>
@@ -84,6 +86,7 @@ function OnboardingForm() {
                 className={`form-input`}
                 onBlur={handleBlur('lastName', isValidateName)}
                 onFocus={handleFocus('lastName')}
+                maxLength={50}
             />
             <span className={`error-message ${invalidFields.includes('lastName') ? "visible" : ''}`}>Required</span>
         </div>
