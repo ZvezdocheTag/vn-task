@@ -4,14 +4,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import '@testing-library/jest-dom';
 import * as actions from '../actions/submit-onboarding-form.ts';
 
-// Create a mock for the submitOnboardingFrom function
 vi.mock('../actions/submit-onboarding-form', () => ({
   submitOnboardingFrom: vi.fn()
 }));
 
 describe("OnboardingForm Component", () => {
   beforeEach(() => {
-    // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
