@@ -15,7 +15,7 @@ export const submitOnboardingFrom = async (formObject: OnbordinForm): Promise<On
         },
         body: JSON.stringify(formObject),
     });
-
+    console.log(result, "result")
     if (result.status === 400) {
         const body = await result.json();
         return {

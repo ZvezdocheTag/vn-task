@@ -6,6 +6,7 @@ import {
 import { isCorporateNumberValidAsync } from '../utils/validation-backend';
 import './OnboardingForm.css';
 import { OnboardFormSubmitRes, submitOnboardingFrom } from '../actions/submit-onboarding-form';
+import Input from './Input';
 
 export type OnbordinForm = {
     firstName: string;
@@ -51,10 +52,10 @@ function OnboardingForm() {
     }
 
     const handleFocus = (fieldNameInput: string) => {
-        if(submitStatus !== null) {
-            setSubmitStatus(null);
-        }
         return () => {
+            if (submitStatus !== null) {
+                setSubmitStatus(null);
+            }
             const removeMatchedField = (prev: string[]) => prev.filter(fieldName => fieldName !== fieldNameInput);
             setInvalidField(removeMatchedField);
             if (untouchedFields.includes(fieldNameInput)) {
@@ -65,64 +66,50 @@ function OnboardingForm() {
 
     return <form onSubmit={handleSubmit} className="form-grid">
         <div className="form-fieldset">
-            <label htmlFor="firstName" className="form-label">
-                First Name:
-            </label>
-            <input
-                type="text"
+            <Input
                 id="firstName"
-                name="firstName"
-                className={`form-input`}
-                onBlur={handleBlur('firstName', isValidateName)}
-                onFocus={handleFocus('firstName')}
+                label="First Name"
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                isValid={invalidFields.includes('firstName')}
+                validationFn={isValidateName}
                 maxLength={50}
             />
-            <span className={`error-message ${invalidFields.includes('firstName') ? "visible" : ''}`}>Required</span>
         </div>
         <div className="form-fieldset">
-            <label htmlFor="lastName" className="form-label">
-                Last Name:
-            </label>
-            <input
-                type="text"
+            <Input
                 id="lastName"
-                name="lastName"
-                className={`form-input`}
-                onBlur={handleBlur('lastName', isValidateName)}
-                onFocus={handleFocus('lastName')}
+                label="Last Name"
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                isValid={invalidFields.includes('lastName')}
+                validationFn={isValidateName}
                 maxLength={50}
             />
-            <span className={`error-message ${invalidFields.includes('lastName') ? "visible" : ''}`}>Required</span>
         </div>
         <div className="form-fieldset full-width">
-            <label htmlFor="phone" className="form-label">
-                Phone Number:
-            </label>
-            <input
-                type="text"
-                name="phone"
+            <Input
                 id="phone"
-                className={`form-input`}
-                onBlur={handleBlur('phone', isValidCanadianPhoneNumber)}
-                onFocus={handleFocus('phone')}
+                label="Phone Number"
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                isValid={invalidFields.includes("phone")}
+                validationFn={isValidCanadianPhoneNumber}
                 maxLength={12}
+                validationMessage={`"+" is required and only canadien numbers`}
             />
-            <span className={`error-message ${invalidFields.includes('phone') ? "visible" : ''}`}>"+" is required and only canadien numbers</span>
         </div>
         <div className="form-fieldset full-width" >
-            <label htmlFor="corporationNumber" className="form-label">
-                Corporation Number:
-            </label>
-            <input
-                type="text"
+            <Input
                 id="corporationNumber"
-                name="corporationNumber"
-                className={`form-input`}
-                onBlur={handleBlur('corporationNumber', isCorporateNumberValidAsync)}
-                onFocus={handleFocus('corporationNumber')}
+                label="Corporation Number"
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                isValid={invalidFields.includes("corporationNumber")}
+                validationFn={isCorporateNumberValidAsync}
                 maxLength={9}
+                validationMessage={`Invalid corporation number`}
             />
-            <span className={`error-message ${invalidFields.includes('corporationNumber') ? "visible" : ''}`}>Invalid corporation number</span>
         </div>
         {submitStatus ?
             <div className={`form-fieldset full-width`}>
