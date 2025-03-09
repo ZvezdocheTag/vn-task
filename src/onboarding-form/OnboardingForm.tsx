@@ -31,7 +31,6 @@ function OnboardingForm() {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
                 const formObject = Object.fromEntries(formData.entries()) as OnbordinForm;
-                console.log('submit')
 
                 if (invalidFields.length === 0 && untouchedFields.length === 0) {
                     const result = await submitOnboardingFrom(formObject);
@@ -52,6 +51,9 @@ function OnboardingForm() {
     }
 
     const handleFocus = (fieldNameInput: string) => {
+        if(submitStatus !== null) {
+            setSubmitStatus(null);
+        }
         return () => {
             const removeMatchedField = (prev: string[]) => prev.filter(fieldName => fieldName !== fieldNameInput);
             setInvalidField(removeMatchedField);
@@ -68,6 +70,7 @@ function OnboardingForm() {
             </label>
             <input
                 type="text"
+                id="firstName"
                 name="firstName"
                 className={`form-input`}
                 onBlur={handleBlur('firstName', isValidateName)}
@@ -82,6 +85,7 @@ function OnboardingForm() {
             </label>
             <input
                 type="text"
+                id="lastName"
                 name="lastName"
                 className={`form-input`}
                 onBlur={handleBlur('lastName', isValidateName)}
@@ -97,6 +101,7 @@ function OnboardingForm() {
             <input
                 type="text"
                 name="phone"
+                id="phone"
                 className={`form-input`}
                 onBlur={handleBlur('phone', isValidCanadianPhoneNumber)}
                 onFocus={handleFocus('phone')}
@@ -110,6 +115,7 @@ function OnboardingForm() {
             </label>
             <input
                 type="text"
+                id="corporationNumber"
                 name="corporationNumber"
                 className={`form-input`}
                 onBlur={handleBlur('corporationNumber', isCorporateNumberValidAsync)}
