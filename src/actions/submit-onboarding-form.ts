@@ -1,4 +1,4 @@
-import { OnbordinForm } from "../onboarding-form/OnboardingForm";
+import { OnbordinForm } from "../hooks/use-form";
 
 const serverUrl = import.meta.env.VITE_BACKEND_API;
 
