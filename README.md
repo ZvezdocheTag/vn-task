@@ -1,7 +1,3 @@
-### Live url
-
-https://zvezdochetag.github.io/vn-task/
-
 ### Basic command
 
 > Developed with `pnpm`, should be ok with `npm` and `yarn` as well.
